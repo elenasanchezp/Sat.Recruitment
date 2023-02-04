@@ -33,7 +33,7 @@ namespace Sat.Recruitment.Application.Services
                 };
             }
             
-            var newUser = new UserViewModel
+            var newUser = new User
             {
                 Name = name,
                 Email = normalizedEmail,
@@ -123,7 +123,7 @@ namespace Sat.Recruitment.Application.Services
         /// <param name="u1"></param>
         /// <param name="u2"></param>
         /// <returns>True if user is duplicate, False in another case</returns>
-        private static bool IsUserDuplicated(UserViewModel u1, UserViewModel u2)
+        private static bool IsUserDuplicated(User u1, User u2)
         {
             return u1.Email == u2.Email || u1.Phone == u2.Phone || (u1.Name == u2.Name && u1.Address == u2.Address);
         }

@@ -31,7 +31,6 @@ namespace Sat.Recruitment.Test.Controllers
 
         }
 
-
         [Fact]
         public async Task CreateUser_Normal_GivenAnyNewUser_OkExpected()
         {          

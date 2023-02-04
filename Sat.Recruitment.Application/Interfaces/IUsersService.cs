@@ -6,6 +6,6 @@ namespace Sat.Recruitment.Application.Interfaces
 {
     public interface IUsersService
     {
-        Task<List<UserViewModel>> GetUsersAsync();
+        Task<List<User>> GetUsersAsync();
     }
 }

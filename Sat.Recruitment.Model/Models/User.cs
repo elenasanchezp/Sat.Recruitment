@@ -3,7 +3,7 @@
     /// <summary>
     /// Contains data relative to a valid user
     /// </summary>
-    public class UserViewModel
+    public class User
     {
         public string Name { get; set; }
 

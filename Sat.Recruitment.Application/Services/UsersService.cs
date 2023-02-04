@@ -14,7 +14,7 @@ namespace Sat.Recruitment.Application.Services
         /// Get list of users from file 
         /// </summary>
         /// <returns></returns>
-        public async Task<List<UserViewModel>> GetUsersAsync()
+        public async Task<List<User>> GetUsersAsync()
         {
             return ReadUsersFromFile();
         }
@@ -25,11 +25,11 @@ namespace Sat.Recruitment.Application.Services
         /// Read user line from file path
         /// </summary>
         /// <returns>User view model list</returns>
-        private List<UserViewModel> ReadUsersFromFile()
+        private List<User> ReadUsersFromFile()
         {
             try
             {
-                var output = new List<UserViewModel>();
+                var output = new List<User>();
 
                 var path = $"{Directory.GetCurrentDirectory()}{Constants.USER_FILE_PATH}";
 
@@ -41,7 +41,7 @@ namespace Sat.Recruitment.Application.Services
                         {
                             var line = reader.ReadLineAsync().Result;
 
-                            UserViewModel user = GetUserByLine(line);
+                            User user = GetUserByLine(line);
 
                             output.Add(user);
                         }
@@ -62,7 +62,7 @@ namespace Sat.Recruitment.Application.Services
         /// </summary>
         /// <param name="line"></param>
         /// <returns>User detail as Model</returns>
-        private UserViewModel GetUserByLine(string line)
+        private User GetUserByLine(string line)
         {
             try
             {
@@ -70,7 +70,7 @@ namespace Sat.Recruitment.Application.Services
 
                 Enum.TryParse(splittedLine[4], out UserType userType);
 
-                var user = new UserViewModel
+                var user = new User
                 {
                     Name = splittedLine[0],
                     Email = splittedLine[1],
