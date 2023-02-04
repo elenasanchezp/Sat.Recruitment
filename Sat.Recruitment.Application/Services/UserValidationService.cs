@@ -37,7 +37,7 @@ namespace Sat.Recruitment.Application.Services
 
             //Validate if UserType is correct
             Enum.TryParse(userTypeAsString, out UserType userType);
-            if (userType == 0)
+            if (!Enum.IsDefined(typeof(UserType), userType))
                 errorsList.Add("The userType is incorrect");
 
             //Validate if Phone is null
