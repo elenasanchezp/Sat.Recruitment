@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using Sat.Recruitment.Application.ViewModels;
+using Sat.Recruitment.Model.Models;
 using Sat.Recruitment.Application.Interfaces;
 
 namespace Sat.Recruitment.Api.Controllers

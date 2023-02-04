@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Sat.Recruitment.Application.ViewModels
+namespace Sat.Recruitment.Model.Models
 {
     /// <summary>
     /// Contains data relative to a results

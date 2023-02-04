@@ -1,5 +1,5 @@
 ﻿using Sat.Recruitment.Application.Interfaces;
-using Sat.Recruitment.Application.ViewModels;
+using Sat.Recruitment.Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

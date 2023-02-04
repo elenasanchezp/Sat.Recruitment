@@ -1,4 +1,4 @@
-﻿using Sat.Recruitment.Application.ViewModels;
+﻿using Sat.Recruitment.Model.Models;
 using System.Threading.Tasks;
 
 namespace Sat.Recruitment.Application.Interfaces
