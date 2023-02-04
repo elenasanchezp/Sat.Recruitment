@@ -1,0 +1,94 @@
+﻿using Sat.Recruitment.Api.Common;
+using Sat.Recruitment.Application.Interfaces;
+using Sat.Recruitment.Application.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace Sat.Recruitment.Application.Services
+{
+    public class UsersService : IUsersService
+    {
+        /// <summary>
+        /// Get list of users from file 
+        /// </summary>
+        /// <returns></returns>
+        public async Task<List<UserViewModel>> GetUsersAsync()
+        {
+            return ReadUsersFromFile();
+        }
+
+        #region "Private methods"
+
+        /// <summary>
+        /// Read user line from file path
+        /// </summary>
+        /// <returns>User view model list</returns>
+        private List<UserViewModel> ReadUsersFromFile()
+        {
+            try
+            {
+                var output = new List<UserViewModel>();
+
+                var path = $"{Directory.GetCurrentDirectory()}{Constants.USER_FILE_PATH}";
+
+                using (FileStream fileStream = new FileStream(path, FileMode.Open))
+                {
+                    using (var reader = new StreamReader(fileStream))
+                    {
+                        while (reader.Peek() >= 0)
+                        {
+                            var line = reader.ReadLineAsync().Result;
+
+                            UserViewModel user = GetUserByLine(line);
+
+                            output.Add(user);
+                        }
+                        reader.Close();
+                    }
+                }
+
+                return output;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Get user detail from a line
+        /// </summary>
+        /// <param name="line"></param>
+        /// <returns>User detail as Model</returns>
+        private UserViewModel GetUserByLine(string line)
+        {
+            try
+            {
+                var splittedLine = line.Split(Constants.USER_FILE_PARAMS_SEPARATOR);
+
+                Enum.TryParse(splittedLine[4], out UserType userType);
+
+                var user = new UserViewModel
+                {
+                    Name = splittedLine[0],
+                    Email = splittedLine[1],
+                    Phone = splittedLine[2],
+                    Address = splittedLine[3],
+                    UserType = userType,
+                    Money = decimal.Parse(splittedLine[5]),
+                };
+
+                return user;
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        #endregion
+
+    }
+}
