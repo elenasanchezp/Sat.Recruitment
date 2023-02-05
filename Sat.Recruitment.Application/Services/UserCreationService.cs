@@ -21,9 +21,9 @@ namespace Sat.Recruitment.Application.Services
         {
             Enum.TryParse(userTypeString, out UserType userType);
 
-            var newMoney = CalculateMoney(userType, decimal.Parse(money));
+            var newMoney = CalculateMoneyByUserTypeAndMoney(userType, decimal.Parse(money));
             
-            var normalizedEmail = NormalizeEmailOnCreateUser(email);
+            var normalizedEmail = NormalizeEmailByEmail(email);
             if (normalizedEmail == string.Empty)
             {
                 return new Result()
@@ -62,7 +62,7 @@ namespace Sat.Recruitment.Application.Services
         /// <param name="userType"></param>
         /// <param name="money"></param>
         /// <returns>Calculated value of money</returns>
-        private static decimal CalculateMoney(UserType userType, decimal money)
+        private static decimal CalculateMoneyByUserTypeAndMoney(UserType userType, decimal money)
         {
             decimal percentage = 0;
 
@@ -98,7 +98,7 @@ namespace Sat.Recruitment.Application.Services
         /// </summary>
         /// <param name="email"></param>
         /// <returns>Email normalized</returns>
-        private static string NormalizeEmailOnCreateUser(string email)
+        private static string NormalizeEmailByEmail(string email)
         {
             try
             {

@@ -2,6 +2,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Sat.Recruitment.Api.Controllers;
 using Sat.Recruitment.Application.Services;
+using Sat.Recruitment.Model.Models;
 using Xunit;
 
 namespace Sat.Recruitment.Test.Controllers
@@ -86,17 +87,17 @@ namespace Sat.Recruitment.Test.Controllers
         }
 
         [Fact]
-        public async Task CreateUser_CheckUserFieldsValidation_ErrorExpected()
+        public async Task CreateUser_CheckRequiredUserFieldsValidation_ErrorExpected()
         {
-            var result = await userController.CreateUser(null, null, null, null, "UserTypeInIncorrect", "NonParseableMoney");
+            var result = await userController.CreateUser(null, null, null, null, string.Empty, string.Empty);
 
             Assert.False(result.IsSuccess);
             Assert.Contains("The name is required", result.Errors);
             Assert.Contains("The email is required", result.Errors);
             Assert.Contains("The address is required", result.Errors);
             Assert.Contains("The phone is required", result.Errors);
-            Assert.Contains("The userType is incorrect", result.Errors);
-            Assert.Contains("The money value is not parseable", result.Errors);
+            Assert.Contains("The userType is required", result.Errors);
+            Assert.Contains("The money is required", result.Errors);
         }
 
         [Fact]
@@ -127,12 +128,21 @@ namespace Sat.Recruitment.Test.Controllers
         }
 
         [Fact]
-        public async Task CreateUser_UserTypeInIncorrect_UserTypeInIncorrectErrorException()
+        public async Task CreateUser_UserTypeIncorrectFormat_UserTypeErrorExpected()
         {
-            var result = await userController.CreateUser("Juan", "Juan@marmol.com", "Peru 2464", "+5491154762312", "serTypeInIncorrect", "1234");
+            var result = await userController.CreateUser("Juan", "Juan@marmol.com", "Peru 2464", "+5491154762312", "NonUserType", "231");
 
             Assert.False(result.IsSuccess);
             Assert.Contains("The userType is incorrect", result.Errors);
+        }
+
+        [Fact]
+        public async Task CreateUser_MoneyIncorrectFormat_MoneyErrorExpected()
+        {
+            var result = await userController.CreateUser("Juan", "Juan@marmol.com", "Peru 2464", "+5491154762312", "Normal", "NonParseableMoney");
+
+            Assert.False(result.IsSuccess);
+            Assert.Contains("The money value is not parseable", result.Errors);
         }
     }
 }
